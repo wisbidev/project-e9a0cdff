@@ -1,0 +1,129 @@
+/* ===== Menu Section ===== */
+
+.menu {
+  padding: 96px 24px 110px;
+  display: flex;
+  justify-content: center;
+}
+
+.menuInner {
+  max-width: 640px;
+  width: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 56px 48px;
+}
+
+/* ===== Section Heading ===== */
+
+.heading {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.9rem, 5vw, 2.4rem);
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  color: var(--color-text);
+  position: relative;
+}
+
+.heading::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  margin: 14px auto 0;
+}
+
+/* ===== Menu List ===== */
+
+.list {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ===== Drink Row ===== */
+
+.drink {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  transition:
+    border-color var(--duration-fast),
+    transform var(--duration-fast),
+    box-shadow var(--duration-fast);
+}
+
+.drink:hover {
+  border-color: var(--color-primary-soft);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-row-hover);
+}
+
+/* ===== Drink Name ===== */
+
+.name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+/* ===== Dotted Leader ===== */
+
+.dots {
+  flex: 1;
+  border-bottom: 2px dotted var(--color-border);
+  transform: translateY(-4px);
+  min-width: 24px;
+}
+
+/* ===== Price ===== */
+
+.price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary-hover);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+/* ===== Compact Breakpoint (≤ 560px) ===== */
+
+@media (max-width: 560px) {
+  .menu {
+    padding: 64px 16px 80px;
+  }
+
+  .menuInner {
+    padding: 40px 24px;
+  }
+}
+
+/* ===== Reduced Motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .drink {
+    transition: none;
+  }
+
+  .drink:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
