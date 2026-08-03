@@ -44,6 +44,13 @@
   }
 }
 
+/* Keyboard focus ring: 3px amber outline, 3px offset, 6px radius */
+.focusRing:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 /* Reduced-motion: disable all animations, show content instantly */
 @media (prefers-reduced-motion: reduce) {
   .fadeUp {
