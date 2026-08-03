@@ -1,0 +1,62 @@
+/* HeroSection — animations and reduced-motion overrides */
+
+/* Staggered fade-up on load */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fadeUp {
+  opacity: 0;
+  animation: fadeUp 0.9s ease-out forwards;
+}
+
+/* Steam loop */
+@keyframes steam {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0px) scaleY(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-6px) scaleY(1.15);
+  }
+}
+
+.steam {
+  animation: steam 3.2s ease-in-out infinite;
+}
+
+/* Chevron slides down 3px on hover */
+@keyframes chevronShift {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(3px);
+  }
+}
+
+/* Reduced-motion: disable all animations, show content instantly */
+@media (prefers-reduced-motion: reduce) {
+  .fadeUp {
+    opacity: 1;
+    animation: none;
+  }
+
+  .steam {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .chevron {
+    transition: none;
+  }
+}
