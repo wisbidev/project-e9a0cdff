@@ -1,82 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import {
   heroDefault,
-  heroLoading,
   heroError,
-  type HeroData,
 } from '@/lib/mock/hero-section-with-scroll-to-menu-button'
 import styles from './HeroSection.module.css'
 
-type HeroState = 'default' | 'loading' | 'error'
-
-/**
- * Fetches hero data from the mock module.
- * Replace body with a real fetch call to wire the real API.
- */
-async function fetchHeroData(): Promise<HeroData> {
-  // Real API call would go here:
-  // const res = await fetch('/api/hero')
-  // if (!res.ok) throw new Error('Failed')
-  // return res.json()
-  return new Promise((resolve) => setTimeout(() => resolve(heroDefault), 800))
-}
-
 export default function HeroSection() {
-  const [state, setState] = useState<HeroState>('loading')
-  const [data, setData] = useState<HeroData | null>(null)
-
-  useEffect(() => {
-    fetchHeroData()
-      .then((d) => {
-        setData(d)
-        setState('default')
-      })
-      .catch(() => {
-        setState('error')
-      })
-  }, [])
-
-  if (state === 'loading') {
-    return (
-      <section
-        aria-label="Hero"
-        className="min-h-[100svh] bg-bg flex items-center justify-center px-6"
-      >
-        <div className="flex flex-col items-center gap-8 animate-pulse">
-          {/* Cup skeleton */}
-          <div className="bg-border rounded-full w-[108px] h-[108px]" />
-          {/* Headline skeleton */}
-          <div className="bg-border rounded h-16 w-64" />
-          {/* Subtitle skeleton */}
-          <div className="bg-border rounded h-6 w-48" />
-          {/* Button skeleton */}
-          <div className="bg-border rounded-full h-[58px] w-44" />
-        </div>
-      </section>
-    )
-  }
-
-  if (state === 'error') {
-    return (
-      <section
-        aria-label="Hero"
-        className="min-h-[100svh] bg-bg flex items-center justify-center px-6"
-      >
-        <p className="text-text-muted font-sans text-base">
-          {heroError.message}
-        </p>
-      </section>
-    )
-  }
-
-  const { copy } = data as HeroData
+  const { copy } = heroDefault
 
   return (
     <section
       aria-label="Hero"
-      className={`min-h-[100svh] bg-bg flex flex-col items-center justify-center px-6 ${styles.hero}`}
+      className="min-h-[100svh] bg-bg flex flex-col items-center justify-center px-6"
     >
       {/* Coffee cup illustration — decorative, aria-hidden */}
       <div
@@ -166,12 +102,11 @@ export default function HeroSection() {
         {copy.subtitle}
       </p>
 
-      {/* CTA Button */}
+      {/* CTA Button — real anchor so it works without JS */}
       <a
         href={`#${copy.menuAnchorId}`}
-        className={`inline-flex items-center gap-3 mt-12 px-[34px] py-4 bg-primary text-surface font-sans font-semibold text-label rounded-full shadow-btn tracking-[0.02em] leading-[1.6] transition-all duration-fast hover:bg-primary-hover hover:shadow-btn-hover hover:-translate-y-0.5 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline focus-visible:outline-primary focus-visible:rounded-[6px] ${styles.fadeUp}`}
+        className={`inline-flex items-center gap-3 mt-12 px-[34px] py-4 bg-primary text-surface font-sans font-semibold text-label rounded-full shadow-btn tracking-[0.02em] leading-[1.6] transition-all duration-fast hover:bg-primary-hover hover:shadow-btn-hover hover:-translate-y-0.5 ${styles.fadeUp} ${styles.focusRing}`}
         style={{ animationDelay: '0.36s' }}
-        aria-label={copy.buttonLabel}
       >
         {copy.buttonLabel}
         {/* Down chevron — decorative, aria-hidden */}
@@ -193,6 +128,13 @@ export default function HeroSection() {
           />
         </svg>
       </a>
+
+      {/* Error fallback — rendered server-side if needed */}
+      {false && (
+        <p className="text-text-muted font-sans text-base">
+          {heroError.message}
+        </p>
+      )}
     </section>
   )
 }
